@@ -4,20 +4,6 @@
   "buildCommand": "npm run build",
   "outputDirectory": ".next/standalone",
   "installCommand": "npm install",
-  "env": {
-    "NEXTAUTH_URL": {
-      "description": "NextAuth callback URL (production domain)",
-      "required": true
-    },
-    "NEXTAUTH_SECRET": {
-      "description": "NextAuth secret key for JWT signing",
-      "required": true
-    },
-    "NEXT_PUBLIC_API_URL": {
-      "description": "Backend API base URL",
-      "required": true
-    }
-  },
   "regions": ["iad1"],
   "git": {
     "deploymentEnabled": {
