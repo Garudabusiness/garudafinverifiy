@@ -37,10 +37,17 @@ const makeRequest = async <T = any>(
   options: RequestInit = {}
 ): Promise<T> => {
   const token = getToken();
-  const headers: HeadersInit = {
-    "Content-Type": "application/json",
-    ...options.headers
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json"
   };
+
+  if (options.headers instanceof Headers) {
+    options.headers.forEach((value, key) => {
+      headers[key] = value;
+    });
+  } else if (typeof options.headers === "object" && options.headers !== null) {
+    Object.assign(headers, options.headers);
+  }
 
   if (token) {
     headers["Authorization"] = `Bearer ${token}`;
@@ -200,4 +207,40 @@ export const evidence = {
     makeRequest(`/evidence/${id}/delete`, {
       method: "POST"
     })
+};
+
+// Auth Storage utility
+export const authStorage = {
+  setToken: (token: string) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("accessToken", token);
+    }
+  },
+  getToken: getToken,
+  removeToken: () => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("accessToken");
+    }
+  },
+  load: () => {
+    if (typeof window === "undefined") return null;
+    const token = localStorage.getItem("accessToken");
+    const user = localStorage.getItem("user");
+    return {
+      token,
+      user: user ? JSON.parse(user) : null
+    };
+  },
+  save: (token: string, user: any) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("accessToken", token);
+      localStorage.setItem("user", JSON.stringify(user));
+    }
+  },
+  clear: () => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("user");
+    }
+  }
 };
