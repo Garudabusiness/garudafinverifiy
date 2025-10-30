@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "public": false,
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next/standalone",
+  "installCommand": "npm install",
+  "env": {
+    "NEXTAUTH_URL": {
+      "description": "NextAuth callback URL (production domain)",
+      "required": true
+    },
+    "NEXTAUTH_SECRET": {
+      "description": "NextAuth secret key for JWT signing",
+      "required": true
+    },
+    "NEXT_PUBLIC_API_URL": {
+      "description": "Backend API base URL",
+      "required": true
+    }
+  },
+  "devDependencies": {
+    "typescript": "5.5.4",
+    "@types/node": "20.11.30",
+    "@types/react": "18.2.66",
+    "@types/react-dom": "18.2.22"
+  },
+  "regions": ["iad1"],
+  "git": {
+    "deploymentEnabled": {
+      "main": true
+    }
+  },
+  "functions": {
+    "api/**/*.ts": {
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  }
+}
