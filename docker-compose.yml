@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: garudaverify-db
+    environment:
+      POSTGRES_USER: garudaverify
+      POSTGRES_PASSWORD: garudaverify123
+      POSTGRES_DB: garudaverify
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U garudaverify"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./garudaverify-backend
+      dockerfile: Dockerfile
+    container_name: garudaverify-backend
+    environment:
+      PORT: 8080
+      DATABASE_URL: postgresql://garudaverify:garudaverify123@postgres:5432/garudaverify
+      JWT_ACCESS_SECRET: dev_access_secret_change_in_production
+      JWT_REFRESH_SECRET: dev_refresh_secret_change_in_production
+      JWT_ACCESS_EXPIRES: 900
+      JWT_REFRESH_EXPIRES: 1209600
+      CORS_ORIGINS: http://localhost:3000
+      NODE_ENV: production
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: sh -c "npx prisma migrate deploy && node dist/main"
+    volumes:
+      - ./garudaverify-backend/prisma:/app/prisma
+      - ./garudaverify-backend/src:/app/src
+
+  frontend:
+    build:
+      context: ./garudaverify-frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:8080
+    container_name: garudaverify-frontend
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8080
+      NEXTAUTH_URL: http://localhost:3000
+      NEXTAUTH_SECRET: dev_nextauth_secret_change_in_production
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
