@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 export interface ApiResponse<T = any> {
   data?: T;
@@ -36,6 +36,13 @@ const makeRequest = async <T = any>(
   path: string,
   options: RequestInit = {}
 ): Promise<T> => {
+  // Validate API URL is configured
+  if (!API_URL) {
+    throw new ApiError(
+      "API configuration error: NEXT_PUBLIC_API_URL is not set. Please configure your backend API URL."
+    );
+  }
+
   const token = getToken();
   const headers: Record<string, string> = {
     "Content-Type": "application/json"

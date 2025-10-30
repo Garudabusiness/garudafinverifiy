@@ -87,7 +87,14 @@ export default function LoginPage() {
         throw new Error("Invalid server response. Please try again.");
       }
 
-      localStorage.setItem("gv.tokens", JSON.stringify(data));
+      // Store token and user info for authenticated requests
+      localStorage.setItem("accessToken", data.accessToken);
+      if (data.refreshToken) {
+        localStorage.setItem("refreshToken", data.refreshToken);
+      }
+      if (data.user) {
+        localStorage.setItem("user", JSON.stringify(data.user));
+      }
 
       const role = (data.user?.role || "CLIENT").toLowerCase();
       window.location.href = role === "admin" ? "/admin" : role === "field" ? "/field" : "/client";
