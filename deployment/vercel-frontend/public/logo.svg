@@ -1,0 +1,42 @@
+<svg width="480" height="80" viewBox="0 0 480 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Left Wing Triangle -->
+  <path d="M15 50 L40 15 L40 50 Z" fill="#0052A3"/>
+
+  <!-- Right Wing Triangle -->
+  <path d="M75 50 L50 15 L50 50 Z" fill="#0052A3"/>
+
+  <!-- Eagle Head Circle -->
+  <circle cx="45" cy="28" r="8" fill="#0052A3"/>
+
+  <!-- Eagle Eye -->
+  <circle cx="43" cy="27" r="2" fill="white"/>
+
+  <!-- Eagle Beak -->
+  <path d="M49 28 L55 27 L54 30 L49 29 Z" fill="#0052A3"/>
+
+  <!-- Eagle Neck/Body Connection -->
+  <path d="M40 35 L50 35 L50 45 L48 50 L42 50 L40 45 Z" fill="#0052A3"/>
+
+  <!-- Center Bottom Body -->
+  <path d="M42 50 L48 50 L47 58 L43 58 Z" fill="#0052A3"/>
+
+  <!-- Left Wing Detail Lines -->
+  <path d="M20 45 L35 20" stroke="#0052A3" stroke-width="1.5" opacity="0.5"/>
+  <path d="M25 48 L37 28" stroke="#0052A3" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- Right Wing Detail Lines -->
+  <path d="M70 45 L55 20" stroke="#0052A3" stroke-width="1.5" opacity="0.5"/>
+  <path d="M65 48 L53 28" stroke="#0052A3" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- Decorative Swirl Left -->
+  <path d="M38 32 Q35 35, 38 38" stroke="#0052A3" stroke-width="2" fill="none" opacity="0.7"/>
+
+  <!-- Decorative Swirl Right -->
+  <path d="M52 32 Q55 35, 52 38" stroke="#0052A3" stroke-width="2" fill="none" opacity="0.7"/>
+
+  <!-- "Garuda" Text in Cyan - Bold -->
+  <text x="100" y="52" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="900" letter-spacing="-1" fill="#00B4D8">Garuda</text>
+
+  <!-- "Verify" Text in Dark Blue - Bold -->
+  <text x="280" y="52" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="900" letter-spacing="-1" fill="#0052A3">Verify</text>
+</svg>

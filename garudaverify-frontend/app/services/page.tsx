@@ -1,6 +1,17 @@
 export default function ServicesPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50">
+      {/* Breadcrumb Navigation */}
+      <section className="bg-white border-b border-gray-200">
+        <div className="mx-auto max-w-7xl px-6 py-4">
+          <nav className="flex items-center gap-2 text-sm">
+            <a href="/" className="text-[#00B4D8] hover:text-[#0096B8] transition">Home</a>
+            <span className="text-slate-400">/</span>
+            <span className="text-slate-600 font-medium">Services</span>
+          </nav>
+        </div>
+      </section>
+
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-[#0052A3] to-[#00B4D8] text-white py-20">
         <div className="mx-auto max-w-7xl px-6">

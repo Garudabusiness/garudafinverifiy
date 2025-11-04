@@ -202,7 +202,7 @@ export default function Page() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
-              href="/login"
+              href="https://wa.me/919363090901"
               className="px-10 py-4 rounded-xl bg-[#00B4D8] hover:bg-[#0096B8] text-white font-semibold text-lg transition-all shadow-lg hover:shadow-xl"
             >
               Request a Verification Today

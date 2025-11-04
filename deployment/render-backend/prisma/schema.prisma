@@ -1,0 +1,166 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  CLIENT
+  FIELD
+}
+
+enum OrgType {
+  CLIENT
+  INTERNAL
+}
+
+enum RequestType {
+  loan
+  insurance_pre
+  insurance_post
+  vehicle_inspection
+  vehicle_valuation
+  asset_verification
+  vendor_hub_verification
+  documents_collection
+}
+
+enum RequestStatus {
+  DRAFT
+  ASSIGNED
+  IN_PROGRESS
+  ON_HOLD
+  COMPLETED
+  REJECTED
+}
+
+enum Priority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+enum AssignmentStatus {
+  ASSIGNED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum EvidenceKind {
+  PHOTO
+  VIDEO
+  DOC
+}
+
+model User {
+  id              String                  @id @default(cuid())
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
+  name            String
+  email           String                  @unique
+  phone           String?                 @unique
+  passwordHash    String
+  role            Role
+  orgId           String?
+  org             Organization?           @relation(fields: [orgId], references: [id])
+  isActive        Boolean                 @default(true)
+  assignments     Assignment[]
+  requestsCreated VerificationRequest[]   @relation("Requester")
+  evidences       Evidence[]
+  reports         Report[]
+}
+
+model Organization {
+  id        String                  @id @default(cuid())
+  name      String
+  type      OrgType
+  users     User[]
+  address   String?
+  gstin     String?
+  pan       String?
+  createdAt DateTime                @default(now())
+  requests  VerificationRequest[]
+  apiKeys   ApiKey[]
+}
+
+model VerificationRequest {
+  id             String            @id @default(cuid())
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  type           RequestType
+  status         RequestStatus     @default(DRAFT)
+  priority       Priority          @default(NORMAL)
+  requesterId    String
+  requester      User              @relation("Requester", fields: [requesterId], references: [id])
+  clientOrgId    String?
+  clientOrg      Organization?     @relation(fields: [clientOrgId], references: [id])
+  subjectName    String?
+  subjectPhone   String?
+  subjectAddress String?
+  city           String?
+  state          String?
+  pincode        String?
+  loanRefNo      String?
+  meta           Json?
+  assignments    Assignment[]
+  evidences      Evidence[]
+  reports        Report[]
+  dueAt          DateTime?
+  closedAt       DateTime?
+}
+
+model Assignment {
+  id          String              @id @default(cuid())
+  requestId   String
+  request     VerificationRequest @relation(fields: [requestId], references: [id])
+  agentId     String
+  agent       User                @relation(fields: [agentId], references: [id])
+  assignedAt  DateTime            @default(now())
+  startedAt   DateTime?
+  completedAt DateTime?
+  status      AssignmentStatus    @default(ASSIGNED)
+  notes       String?
+}
+
+model Evidence {
+  id         String              @id @default(cuid())
+  requestId  String
+  request    VerificationRequest @relation(fields: [requestId], references: [id])
+  uploaderId String
+  uploader   User                @relation(fields: [uploaderId], references: [id])
+  kind       EvidenceKind
+  filename   String
+  mimeType   String
+  size       Int
+  storageKey String
+  gpsLat     Float?
+  gpsLng     Float?
+  shotAt     DateTime?
+  createdAt  DateTime            @default(now())
+}
+
+model Report {
+  id          String              @id @default(cuid())
+  requestId   String
+  request     VerificationRequest @relation(fields: [requestId], references: [id])
+  url         String
+  createdById String
+  createdBy   User                @relation(fields: [createdById], references: [id])
+  createdAt   DateTime            @default(now())
+}
+
+model ApiKey {
+  id        String        @id @default(cuid())
+  key       String        @unique
+  label     String
+  orgId     String?
+  org       Organization? @relation(fields: [orgId], references: [id])
+  active    Boolean       @default(true)
+  createdAt DateTime      @default(now())
+}

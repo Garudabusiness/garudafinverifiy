@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: garudaverify-backend
+    env: node
+    region: oregon
+    plan: standard
+    numInstances: 1
+    buildCommand: npm install && npm run build && npx prisma generate
+    startCommand: npm start
+    healthCheckPath: /health
+    healthCheckInterval: 30
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: garudaverify-db
+          property: connectionString
+      - key: JWT_ACCESS_SECRET
+        sync: false
+      - key: JWT_REFRESH_SECRET
+        sync: false
+      - key: JWT_ACCESS_EXPIRES
+        value: '900'
+      - key: JWT_REFRESH_EXPIRES
+        value: '1209600'
+      - key: CORS_ORIGINS
+        sync: false
+
+databases:
+  - name: garudaverify-db
+    databaseName: garudaverify
+    user: garudaverify
+    plan: standard
+    ipAllowList:
+      - source: 0.0.0.0/0
+        description: Allow all connections (configure more restrictively in production)

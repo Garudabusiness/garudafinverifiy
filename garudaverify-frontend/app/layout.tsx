@@ -1,46 +1,17 @@
 import "./globals.css";
 import { ReactNode } from "react";
-import Image from "next/image";
+import NavigationHeader from "./components/NavigationHeader";
 
 export const metadata = {
   title: "GarudaVerify – India's Trusted Financial Verification Company",
   description: "Pan-India verification company offering Loan, Insurance, Vehicle, Asset & Vendor checks with API-based delivery, geo-tagged field evidence, and 24–72 hr turnaround."
 };
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className="min-h-screen">
-        <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200">
-          <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
-            <a href="/" className="flex items-center">
-              <img src="/logo.svg" alt="GarudaVerify Logo" className="h-12 w-auto" />
-            </a>
-            <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-              <a href="#about" className="text-slate-700 hover:text-slate-900">About us</a>
-              <div className="relative group">
-                <button className="text-slate-700 hover:text-slate-900 flex items-center gap-1">
-                  Services
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-              </div>
-              <a href="#blogs" className="text-slate-700 hover:text-slate-900">Blogs</a>
-              <a href="#quote" className="text-slate-700 hover:text-slate-900">Get a quote</a>
-            </nav>
-            <div className="flex items-center gap-3">
-              <a href="/login" className="hidden md:inline-flex px-5 py-2.5 rounded-full bg-[#00B4D8] hover:bg-[#0096B8] text-white font-medium text-sm transition-colors">
-                Get Started →
-              </a>
-              <a href="/contact" className="px-4 py-2.5 text-slate-700 hover:text-slate-900 font-medium text-sm flex items-center gap-2">
-                Contact Us
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </header>
+        <NavigationHeader />
         <main>{children}</main>
         <footer className="border-t bg-slate-900 text-white mt-24">
           {/* Map Section */}
@@ -69,7 +40,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 {/* Company Info */}
                 <div className="md:col-span-1">
                   <a href="/">
-                    <img src="/logo.svg" alt="GarudaVerify" className="h-10 mb-4" style={{ filter: 'brightness(0) invert(1)' }} />
+                    <img src="/logo.svg" alt="GarudaVerify" className="h-16 mb-4" style={{ filter: 'brightness(0) invert(1)' }} />
                   </a>
                   <p className="text-slate-400 text-sm leading-relaxed">
                     India's trusted financial verification company providing reliable verification solutions across the nation.
@@ -83,6 +54,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     <li><a href="/" className="hover:text-[#00B4D8] transition">Home</a></li>
                     <li><a href="/about" className="hover:text-[#00B4D8] transition">About Us</a></li>
                     <li><a href="/services" className="hover:text-[#00B4D8] transition">Services</a></li>
+                    <li><a href="/blog" className="hover:text-[#00B4D8] transition">Blog</a></li>
                     <li><a href="/contact" className="hover:text-[#00B4D8] transition">Contact</a></li>
                   </ul>
                 </div>
@@ -125,9 +97,15 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 </div>
               </div>
 
-              {/* Bottom Bar */}
-              <div className="border-t border-slate-800 mt-12 pt-8 text-center text-slate-400 text-sm">
-                <p>© {new Date().getFullYear()} GarudaVerify. All rights reserved.</p>
+              {/* Legal & Resources */}
+              <div className="border-t border-slate-800 mt-12 pt-8">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-slate-400 text-sm mb-6">
+                  <p>© {new Date().getFullYear()} GarudaVerify. All rights reserved.</p>
+                  <div className="flex gap-6">
+                    <a href="/terms" className="hover:text-[#00B4D8] transition">Terms of Service</a>
+                    <a href="/privacy" className="hover:text-[#00B4D8] transition">Privacy Policy</a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

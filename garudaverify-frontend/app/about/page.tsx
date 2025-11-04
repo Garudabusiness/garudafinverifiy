@@ -209,7 +209,7 @@ export default function AboutPage() {
                 </a>
                 <p className="text-blue-100 text-sm">or</p>
                 <a
-                  href="/login"
+                  href="https://wa.me/919363090901"
                   className="inline-block px-10 py-4 rounded-xl border-2 border-white text-white font-semibold text-lg hover:bg-white hover:text-[#0052A3] transition-all mt-4"
                 >
                   Get Started Today

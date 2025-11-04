@@ -10,19 +10,19 @@ export default function NavigationHeader() {
       <div className="mx-auto max-w-7xl px-6 py-3 flex items-center justify-between">
         {/* Logo */}
         <a href="/" className="flex items-center flex-shrink-0 mr-8">
-          <img src="/logo.png" alt="GarudaVerify Logo" width="250" height="150" className="h-20 w-auto" />
+          <img src="/logo.svg" alt="GarudaVerify Logo" width="250" height="80" className="h-20 w-auto" />
         </a>
 
         {/* Navigation Links - Center */}
         <nav className="hidden lg:flex items-center gap-10 text-sm font-medium flex-1 justify-center">
           <a href="/about" className="text-slate-700 hover:text-slate-900 transition">About us</a>
           <div className="relative group" onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
-            <button className="text-slate-700 hover:text-slate-900 flex items-center gap-1 transition">
+            <a href="/services" className="text-slate-700 hover:text-slate-900 flex items-center gap-1 transition">
               Services
               <svg className={`w-4 h-4 transition-transform ${servicesOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
-            </button>
+            </a>
             {servicesOpen && (
               <div className="absolute left-0 mt-2 w-56 bg-white rounded-lg shadow-lg py-2 border border-gray-100 z-50">
                 <a href="/services/loan-verifications" className="block px-4 py-2 text-slate-700 hover:bg-blue-50 hover:text-blue-600">Loan Verification</a>
@@ -40,9 +40,6 @@ export default function NavigationHeader() {
 
         {/* Right Side Buttons */}
         <div className="flex items-center gap-4 flex-shrink-0 ml-8">
-          <a href="/admin-login" className="hidden lg:block text-slate-700 hover:text-slate-900 text-sm font-medium transition">
-            Admin Login
-          </a>
           <a href="https://wa.me/919363090901" target="_blank" rel="noopener noreferrer" className="inline-flex px-6 py-2 rounded-full bg-[#00B4D8] hover:bg-[#0096B8] text-white font-medium text-sm transition-colors">
             Get Started
           </a>
